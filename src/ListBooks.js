@@ -37,7 +37,7 @@ class ListBooks extends Component {
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")`}}></div>
                         <div className="book-shelf-changer">
-                          <select onChange={() => onUpdate(book)}>
+                          <select value={book.shelf} onChange={(e) => onUpdate(book, e)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -64,7 +64,7 @@ class ListBooks extends Component {
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")`}}></div>
                         <div className="book-shelf-changer">
-                          <select>
+                          <select value={book.shelf} onChange={(c) => onUpdate(book, c)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -91,7 +91,7 @@ class ListBooks extends Component {
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")`}}></div>
                         <div className="book-shelf-changer">
-                          <select>
+                          <select value={book.shelf} onChange={(c) => onUpdate(book, c)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

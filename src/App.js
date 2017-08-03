@@ -7,21 +7,44 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    searchResults: [],
+    query: ''
   }
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
   }
-  updateBook = (book) => {
-    this.setState((state) => ({
-      books: []
-    }))
+  updateBook = (book, event) => {
 
-    console.log('1');
+    let shelf = event.target.value;
 
-    //ContactsAPI.remove(contact)
+    this.setState(function (state) {
+      state.books[state.books.findIndex(x => x.id === book.id)].shelf = shelf;
+
+      console.log(book.shelf);
+
+      return {
+        books: state.books
+      }
+    });
+
+    BooksAPI.update(book, shelf);
+
+  }
+  searchBook = (event) => {
+
+    let query = event.target.value;
+
+    this.setState({ query:event.target.value })
+
+    BooksAPI.search(query).then((searchResults) => {
+      this.setState({ searchResults })
+    })
+
+    console.log(query);
+
   }
   render() {
     return (
@@ -33,7 +56,12 @@ class BooksApp extends React.Component {
           />
         )}/>
         <Route exact path='/search' render={() => (
-          <Search />
+          <Search
+            searchResults={this.state.searchResults}
+            onSearch={this.searchBook}
+            onUpdate={this.updateBook}
+            query={this.state.query}
+          />
         )}/>
       </div>
     )
