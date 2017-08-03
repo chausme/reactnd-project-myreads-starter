@@ -4,19 +4,14 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
   static propTypes = {
+    book: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired,
     onUpdate: PropTypes.func.isRequired
   }
 
   render() {
 
-    let books;
-
-    const onUpdate = this.props.onUpdate
-
-    books = this.props.books;
-
-    console.log(books);
+    const { books, book, onUpdate } = this.props
 
     return(
 
@@ -24,7 +19,7 @@ class Book extends Component {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")`}}></div>
           <div className="book-shelf-changer">
-            <select onChange={() => onUpdate(book)}>
+            <select value={(books.findIndex(x => x.id === book.id) >= 0) ? (books[books.findIndex(x => x.id === book.id)].shelf) : ('none')} onChange={(e) => onUpdate(book, e)}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -34,7 +29,9 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors.join(', ')}</div>
+        {book.hasOwnProperty('authors') &&
+          <div className="book-authors">{book.authors.join(', ')}</div>
+        }
       </div>
 
     )
