@@ -11,9 +11,7 @@ class Search extends Component {
 
   render() {
 
-    const { searchResults, onSearch, onUpdate, query } = this.props
-
-    console.log(searchResults);
+    const { books, searchResults, onSearch, onUpdate, query } = this.props
 
     return(
       <div className="search-books">
@@ -36,7 +34,7 @@ class Search extends Component {
                 <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.smallThumbnail}")`}}></div>
                   <div className="book-shelf-changer">
-                    <select value={book.shelf} onChange={(e) => onUpdate(book, e)}>
+                    <select value={(books.findIndex(x => x.id === book.id) > 0) ? (books[books.findIndex(x => x.id === book.id)].shelf) : ('none')} onChange={(e) => onUpdate(book, e)}>
                       <option value="none" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>

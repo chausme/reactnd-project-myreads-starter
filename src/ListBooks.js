@@ -17,8 +17,6 @@ class ListBooks extends Component {
 
     books = this.props.books;
 
-    console.log(books);
-
     return(
 
       <div className="list-books">
