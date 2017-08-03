@@ -21,7 +21,13 @@ class BooksApp extends React.Component {
     let shelf = event.target.value;
 
     this.setState(function (state) {
-      state.books[state.books.findIndex(x => x.id === book.id)].shelf = shelf;
+
+      if (state.books.findIndex(x => x.id === book.id) > 0) {
+        state.books[state.books.findIndex(x => x.id === book.id)].shelf = shelf;
+      } else {
+        book.shelf = shelf;
+        state.books.push(book);
+      }
 
       console.log(book.shelf);
 
